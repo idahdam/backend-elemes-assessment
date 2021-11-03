@@ -16,5 +16,6 @@ router
   .get(courseController.getCourseById)
   .put(courseController.updateCourseById)
   .delete(courseController.deleteCourseById);
+router.route('/all/statistics').get(courseController.getStatistics);
 router.route('/upload/:courseId').post(upload.single('image'), courseController.uploadCoursePhoto);
 module.exports = router;

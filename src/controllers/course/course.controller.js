@@ -8,6 +8,11 @@ const getCourses = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(course);
 });
 
+const getStatistics = catchAsync(async (req, res) => {
+  const course = await courseService.getStatistics();
+  res.status(httpStatus.OK).send(course);
+});
+
 const getCourseById = catchAsync(async (req, res) => {
   const course = await courseService.getCourseById(req.params.courseId);
   if (!course) {
@@ -43,4 +48,5 @@ module.exports = {
   updateCourseById,
   deleteCourseById,
   uploadCoursePhoto,
+  getStatistics,
 };

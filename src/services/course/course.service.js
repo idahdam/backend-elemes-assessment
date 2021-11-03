@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Course } = require('../../models');
+const { Course, User } = require('../../models');
 const ApiError = require('../../utils/ApiError');
 const config = require('../../config/config');
 const { cloudinary } = require('../../middlewares/cloudinary');
@@ -35,6 +35,19 @@ const getCourseById = async (courseId) => {
 };
 
 /**
+ * Get statistics
+ * @param {ObjectId} courseId
+ * @param {Object} courseData
+ * @returns {Promise<Course>}
+ */
+
+const getStatistics = async (req, res) => {
+  // const totalUser = await User.countDocuments({}, (err, count) => count);
+  const totalCourse = await Course.countDocuments({}, (err, count) => count);
+  return { totalCourse: totalCourse };
+};
+
+/**
  * Update course by id
  * @param {ObjectId} courseId
  * @param {Object} courseData
@@ -66,6 +79,12 @@ const deleteCourseById = async (courseId) => {
   return course;
 };
 
+/**
+ * Upload endpoint by id
+ * @param {ObjectId} req
+ * @param {ObjectId} res
+ * @returns {Promise<Course>}
+ */
 const uploadPhoto = async (req, res) => {
   const course = await Course.findById(req.params.courseId);
   if (course) {
@@ -90,4 +109,5 @@ module.exports = {
   updateCourseById,
   deleteCourseById,
   uploadPhoto,
+  getStatistics,
 };
