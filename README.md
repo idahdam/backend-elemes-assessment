@@ -16,6 +16,12 @@ lalu
 yarn install
 ```
 
+dan
+
+```bash
+yarn run dev
+```
+
 ## Table of Contents
 
 - [Features](#features)
