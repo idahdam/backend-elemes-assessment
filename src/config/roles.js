@@ -1,19 +1,24 @@
 const allRoles = {
-  user: ['createUser', 'updateUser', 'getUser', 'getCategory', 'getCourses', 'searchCourse', 'sortCourse'],
+  user: ['createUser', 'updateCategory', 'updateUser', 'getUser', 'getCategory', 'getCourses', 'searchCourse', 'sortCourse'],
   admin: [
     'getCategory',
+    'updateCategory',
+    'deleteCategory',
     'updateUser',
     'getCourses',
     'getUsers',
     'getUser',
     'deleteUser',
-    'CRUDCourse',
+    'createCourse',
+    'updateCourse',
+    'deleteCourse',
     'CRUDCategory',
     'deleteUser',
     'searchCourse',
     'sortCourse',
     'getStatistics',
     'createUser',
+    'uploadCoursePhoto',
   ],
 };
 
