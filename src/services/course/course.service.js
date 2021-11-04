@@ -126,7 +126,7 @@ const uploadPhoto = async (req, res) => {
  */
 
 const getCourseBySearch = async (req, res) => {
-  return Course.find({ title: req.params.search }).populate('category');
+  return Course.find({ title: `${req.params.search}` }).populate('category');
 };
 
 /**
@@ -137,7 +137,11 @@ const getCourseBySearch = async (req, res) => {
  */
 
 const getCourseSortedBy = async (req, res) => {
-  return Course.find().populate('category');
+  if (!isNaN(req.params.base)) {
+    return Course.find().sort({ price: req.params.base });
+  } else {
+    return Course.find({ price: 0 });
+  }
 };
 
 module.exports = {

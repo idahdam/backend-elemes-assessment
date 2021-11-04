@@ -53,12 +53,12 @@ const uploadCoursePhoto = catchAsync(async (req, res) => {
 
 const getCourseBySearch = catchAsync(async (req, res) => {
   const course = await courseService.getCourseBySearch(req, res);
-  res.status(httpStatus.NO_CONTENT).send(course);
+  res.status(httpStatus.OK).send(course);
 });
 
 const getCourseSortedBy = catchAsync(async (req, res) => {
   const course = await courseService.getCourseSortedBy(req, res);
-  res.status(httpStatus.NO_CONTENT).send(course);
+  res.status(httpStatus.OK).send(course);
 });
 
 module.exports = {

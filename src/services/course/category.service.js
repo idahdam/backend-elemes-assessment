@@ -21,7 +21,7 @@ const createCategory = async (categoryData) => {
  */
 
 const getCategories = async (req, res) => {
-  return Course.find();
+  return Category.find();
 };
 
 /**
