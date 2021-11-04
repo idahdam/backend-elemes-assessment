@@ -9,15 +9,17 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(courseController.getCourses)
-  .post(validate(courseValidation.createCourse), courseController.createCourse);
+  .get(auth('getCourses'), courseController.getCourses)
+  .post(auth('createCourse'), validate(courseValidation.createCourse), courseController.createCourse);
 router
   .route('/:courseId')
-  .get(courseController.getCourseById)
-  .put(courseController.updateCourseById)
-  .delete(courseController.deleteCourseById);
-router.route('/sort/:base').get(courseController.getCourseSortedBy);
-router.route('/search/:search').get(courseController.getCourseBySearch);
-router.route('/all/statistics').get(courseController.getStatistics);
-router.route('/upload/:courseId').post(upload.single('image'), courseController.uploadCoursePhoto);
+  .get(auth('getCourses'), courseController.getCourseById)
+  .put(auth('updateCourse'), courseController.updateCourseById)
+  .delete(auth('deleteCourse'), courseController.deleteCourseById);
+router.route('/sort/:base').get(auth('sortCourse'), courseController.getCourseSortedBy);
+router.route('/search/:search').get(auth('searchCourse'), courseController.getCourseBySearch);
+router.route('/all/statistics').get(auth('getStatistics'), courseController.getStatistics);
+router
+  .route('/upload/:courseId')
+  .post(auth('uploadCoursePhoto'), upload.single('image'), courseController.uploadCoursePhoto);
 module.exports = router;

@@ -7,11 +7,11 @@ const { categoryController } = require('../../../controllers');
 const router = express.Router();
 router
   .route('/')
-  .get(categoryController.getCategories)
-  .post(validate(categoryValidation.createCategory), categoryController.createCategory);
+  .get(auth('user'), categoryController.getCategories)
+  .post(auth('admin'), validate(categoryValidation.createCategory), categoryController.createCategory);
 router
   .route('/:categoryId')
-  .get(categoryController.getCategoryById)
-  .put(categoryController.updateCategoryById)
-  .delete(categoryController.deleteCategoryById);
+  .get(auth('admin', 'user'), categoryController.getCategoryById)
+  .put(auth('admin'), categoryController.updateCategoryById)
+  .delete(auth('admin'), categoryController.deleteCategoryById);
 module.exports = router;
