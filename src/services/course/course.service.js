@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Course, User } = require('../../models');
+const { Course, User, Category } = require('../../models');
 const ApiError = require('../../utils/ApiError');
 const config = require('../../config/config');
 const { cloudinary } = require('../../middlewares/cloudinary');
@@ -42,9 +42,24 @@ const getCourseById = async (courseId) => {
  */
 
 const getStatistics = async (req, res) => {
-  // const totalUser = await User.countDocuments({}, (err, count) => count);
-  const totalCourse = await Course.countDocuments({}, (err, count) => count);
-  return { totalCourse: totalCourse };
+  var statistics = {
+    totalUser: 0,
+    totalCourse: 0,
+  };
+  statistics.totalUser = await User.countDocuments({}, (err, count) => {
+    if (!err && count === 0) {
+      return 0;
+    }
+    return count;
+  });
+  statistics.totalCourse = await Course.countDocuments({ price: 0 }, (err, count) => {
+    if (!err && count === 0) {
+      return 0;
+    }
+    return count;
+  });
+
+  return statistics;
 };
 
 /**
@@ -85,6 +100,7 @@ const deleteCourseById = async (courseId) => {
  * @param {ObjectId} res
  * @returns {Promise<Course>}
  */
+
 const uploadPhoto = async (req, res) => {
   const course = await Course.findById(req.params.courseId);
   if (course) {
@@ -102,6 +118,28 @@ const uploadPhoto = async (req, res) => {
   throw new ApiError(httpStatus.NOT_FOUND, 'Course not found');
 };
 
+/**
+ * Get Popular Categories
+ * @param {ObjectId} req
+ * @param {ObjectId} res
+ * @returns {Promise<Course>}
+ */
+
+const getCourseBySearch = async (req, res) => {
+  return Course.find({ title: req.params.search }).populate('category');
+};
+
+/**
+ * Get Course Sorted By Param
+ * @param {ObjectId} req
+ * @param {ObjectId} res
+ * @returns {Promise<Course>}
+ */
+
+const getCourseSortedBy = async (req, res) => {
+  return Course.find().populate('category');
+};
+
 module.exports = {
   createCourse,
   getCourses,
@@ -110,4 +148,8 @@ module.exports = {
   deleteCourseById,
   uploadPhoto,
   getStatistics,
+  // getAllCategories,
+  // getPopularCourses,
+  getCourseBySearch,
+  getCourseSortedBy,
 };

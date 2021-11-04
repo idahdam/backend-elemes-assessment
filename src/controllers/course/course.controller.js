@@ -41,6 +41,26 @@ const uploadCoursePhoto = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send(course);
 });
 
+// const getAllCategories = catchAsync(async (req, res) => {
+//   const course = await courseService.getAllCategories(req, res);
+//   res.status(httpStatus.NO_CONTENT).send(course);
+// });
+
+// const getPopularCourses = catchAsync(async (req, res) => {
+//   const course = await courseService.getPopularCourses(req, res);
+//   res.status(httpStatus.NO_CONTENT).send(course);
+// });
+
+const getCourseBySearch = catchAsync(async (req, res) => {
+  const course = await courseService.getCourseBySearch(req, res);
+  res.status(httpStatus.NO_CONTENT).send(course);
+});
+
+const getCourseSortedBy = catchAsync(async (req, res) => {
+  const course = await courseService.getCourseSortedBy(req, res);
+  res.status(httpStatus.NO_CONTENT).send(course);
+});
+
 module.exports = {
   getCourses,
   getCourseById,
@@ -49,4 +69,8 @@ module.exports = {
   deleteCourseById,
   uploadCoursePhoto,
   getStatistics,
+  // getAllCategories,
+  // getPopularCourses,
+  getCourseBySearch,
+  getCourseSortedBy,
 };

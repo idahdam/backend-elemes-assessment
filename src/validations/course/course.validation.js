@@ -5,8 +5,8 @@ const createCourse = {
   body: Joi.object().keys({
     title: Joi.string().required(),
     price: Joi.number().required(),
-    category: Joi.string().required().valid('coding', 'math', 'physics'),
-    photo: Joi.string().required(),
+    category: Joi.string().required().custom(objectId),
+    photo: Joi.string().required().default('photoLink'),
   }),
 };
 

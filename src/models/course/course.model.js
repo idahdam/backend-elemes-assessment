@@ -8,9 +8,8 @@ const courseSchema = mongoose.Schema({
     type: Number,
   },
   category: {
-    type: String,
-    enum: ['coding', 'math', 'physics'],
-    default: 'coding',
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
   },
   photo: {
     type: String,
