@@ -126,7 +126,7 @@ const uploadPhoto = async (req, res) => {
  */
 
 const getCourseBySearch = async (req, res) => {
-  return Course.find({ title: `${req.params.search}` }).populate('category');
+  return Course.find({ title: new RegExp(req.params.search, 'i') }).populate('category');
 };
 
 /**
@@ -139,7 +139,7 @@ const getCourseBySearch = async (req, res) => {
 const getCourseSortedBy = async (req, res) => {
   if (!isNaN(req.params.base)) {
     return Course.find().sort({ price: req.params.base });
-  } else {
+  } else if (req.params.base === 'free') {
     return Course.find({ price: 0 });
   }
 };
