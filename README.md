@@ -54,7 +54,7 @@ yarn run dev
   `GET /v1/category/all/statistics` - get course statistics\
   `GET /v1/category/:categoryId` - get categories\
   `GET /v1/course/sort/:base` - get sorted course, 1 (desc), -1 (asc), free (free)\
-  `GET /v1/course/search/:search` - get search course, 1 (desc), -1 (asc), free (free)\
+  `GET /v1/course/search/:search` - get search course (replace :search with title name)\
   `POST /v1/course` - create course\
   `POST /v1/upload/:courseId` - upload photo by courseId\
   `POST /v1/category` - create category\
